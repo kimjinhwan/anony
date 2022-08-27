@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const theme = createTheme();
 root.render(
   <React.StrictMode>
-    <App />
+      <Container fixed maxWidth="xs">
+        <App />
+      </Container>
   </React.StrictMode>
 );
 

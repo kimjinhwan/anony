@@ -10,9 +10,61 @@ import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Avatar from '@mui/material/Avatar';
 import Container from '@mui/material/Container';
+import { useState } from 'react';
+import axios from 'axios';
 
 function LogIn(){
+
     const navigate = useNavigate();
+    const [id, SetId] = useState("");
+    const [password, SetPassword] = useState("");
+
+    const IdHandler = (e) => {
+        SetId(e.target.value);
+      };
+    
+      const passwordHandler = (e) => {
+        SetPassword(e.target.value);
+      };
+    
+      const submitHandler = (e) => {
+        // e.preventDefault();
+        // state에 저장한 값을 가져옵니다.
+        console.log(id);
+        console.log(password);
+    
+        let body = {
+          id: id,
+          password: password,
+        };
+    
+        axios
+          .post('http://localhost:3307/login', body)
+          .then((res) => {
+            
+            console.log(res.data[0].USER_ID+ " res front");
+            
+            if(res.data[0].USER_ID === id){
+                //alert(id + "님 로그인하셨습니다.");
+               //navigate("/CardList");
+            }
+            
+
+            
+          })
+          .catch((err)=>{
+            console.log(err + " err front");
+            console.log(err.message + " err front");
+            console.log(err.code + " err front");
+            alert(err + " err front");
+          })
+          ;
+      };
+
+    const pageSignUp = (e) =>{
+        navigate("/SignUp");
+    }  
+
     return(
         <Container component="main" maxWidth="xs">
             <Box
@@ -30,29 +82,23 @@ function LogIn(){
                 Sign In
             </Typography>
             </Box>
-            <form onSubmit={(event) => {
-                navigate('/CardList')
-                event.preventDefault();
-            }}>
-                <p><TextField 
-                    label='Id' 
-                    required
-                    name='id'
-                    fullWidth
-                    autoComplete='id'
-                    autoFocus
-                    ></TextField></p>
-                <p><TextField 
-                    label='Password'
-                    required 
-                    fullWidth
-                    type='password'
-                    name='password'
-                    autoComplete='current-password'
-                    ></TextField></p>
-                <Button type='submit'  variant='contained' sx={{mt:3}}>Sign In</Button>
-            </form>
             
+            <form //form의 submit은 기본 베이스가 리다이렉트로 누르면 그냥 새로고침이됨. 그래서 preventDefault로 막았던거 같음.
+                onSubmit={submitHandler}
+                style={{ display: "flex", flexDirection: "Column" }}
+                >
+                <label>ID</label>
+                <input type="Id" required="true" value={id} onChange={IdHandler}></input>
+                <label>Password</label>
+                <input
+                    type="password"
+                    value={password}
+                    required="true"
+                    onChange={passwordHandler}
+                ></input>
+                <Button sx={{mt:1}} type="submit" variant="contained">Sign In</Button>
+            </form>
+            <Button sx={{mt:2}} color="secondary" onClick={pageSignUp} variant="contained">Sign Up</Button>
         </Container>
     )
 }

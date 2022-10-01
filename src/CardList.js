@@ -23,10 +23,10 @@ function CardList(){
         
         <div>
             <h1 className="text-3xl font-bold underline">
-                Hello world!
+                임시!
             </h1>
             <h1>
-                Hello world!
+                임시!
             </h1>
             <div>
             <table>

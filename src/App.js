@@ -6,9 +6,10 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import CardList from './CardList';
+import CardList from './cardlist';
 import Button from '@mui/material/Button'
-import LogIn from './LogIn';
+import LogIn from './login';
+import SignUp from './signup';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 function App() {
@@ -22,8 +23,9 @@ function App() {
         </ul> */}
       <Routes>
         <Route path="/" element={<LogIn/>} />
-        <Route path="/CardList" element={<CardList/>} />
-        <Route path="/LogIn" element={<LogIn/>} />
+        <Route path="/cardlist" element={<CardList/>} />
+        <Route path="/login" element={<LogIn/>} />
+        <Route path="/signup" element={<SignUp/>} />
       </Routes>
     </BrowserRouter>
       
